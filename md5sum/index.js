@@ -27,7 +27,9 @@ if (!/^[a-z0-9 .-]*$/i.test(input)) {
     // md5sum requires stdin, so this echos and pipes the value to md5sum
     // added sed to remove the trailing " -" that md5sum adds to output
     // added -n because echo includes a newline, causing md5sum to be wrong
-
+var cmd = 'echo -n "' + input + '" | mdsum | sed "s/ -//"';
+    
+  exec(cmd, (error, stout, stderr) => {
         // there was an error, so return the error message
         if (error) {
             callback(null, {
